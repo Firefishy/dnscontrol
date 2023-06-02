@@ -115,22 +115,22 @@ dockers:
     - "--label=org.opencontainers.image.source={{ .GitURL }}"
     - "--platform=linux/arm64"
 docker_manifests:
-  - name_template: "stackexchange/{{.ProjectName}}:{{ .Version }}"
-    image_templates:
-      - *amd_image
-      - *386_image
-      - *arm_image
+  # - name_template: "stackexchange/{{.ProjectName}}:{{ .Version }}"
+  #   image_templates:
+  #     - *amd_image
+  #     - *386_image
+  #     - *arm_image
   - name_template: "ghcr.io/stackexchange/{{.ProjectName}}:{{ .Version }}"
     image_templates:
       - *amd_image
       - *386_image
       - *arm_image
-  - name_template: "stackexchange/{{.ProjectName}}:latest"
-    skip_push: auto
-    image_templates:
-      - *amd_image
-      - *386_image
-      - *arm_image
+  # - name_template: "stackexchange/{{.ProjectName}}:latest"
+  #   skip_push: auto
+  #   image_templates:
+  #     - *amd_image
+  #     - *386_image
+  #     - *arm_image
   - name_template: "ghcr.io/stackexchange/{{.ProjectName}}:latest"
     skip_push: auto
     image_templates:
