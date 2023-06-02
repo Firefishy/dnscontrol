@@ -6,9 +6,9 @@ builds:
       - GO111MODULE=on
     goos:
       - linux
-      - windows
-      - darwin
-      - freebsd
+      # - windows
+      # - darwin
+      # - freebsd
     ldflags:
       - -linkmode=internal -s -w -X main.Version="{{ .Version }}" -X main.SHA="{{ .FullCommit }}" -X main.BuildTime={{ .Timestamp }}
 before:
@@ -70,8 +70,8 @@ nfpms:
       386: i386
 dockers:
   - image_templates:
-    - &amd_image "stackexchange/{{.ProjectName}}:{{ .Version }}-amd64"
-    - &amd_image_ghcr "ghcr.io/stackexchange/{{.ProjectName}}:{{ .Version }}-amd64"
+    # - &amd_image "stackexchange/{{.ProjectName}}:{{ .Version }}-amd64"
+    - &amd_image_ghcr "ghcr.io/firefishy/{{.ProjectName}}:{{ .Version }}-amd64"
     goos: linux
     goarch: amd64
     use: buildx
@@ -86,8 +86,8 @@ dockers:
     - "--label=org.opencontainers.image.source={{ .GitURL }}"
     - "--platform=linux/amd64"
   - image_templates:
-    - &386_image "stackexchange/{{.ProjectName}}:{{ .Version }}-386"
-    - &386_image_ghcr "ghcr.io/stackexchange/{{.ProjectName}}:{{ .Version }}-386"
+    # - &386_image "stackexchange/{{.ProjectName}}:{{ .Version }}-386"
+    - &386_image_ghcr "ghcr.io/firefishy/{{.ProjectName}}:{{ .Version }}-386"
     goos: linux
     goarch: '386'
     use: buildx
@@ -102,8 +102,8 @@ dockers:
     - "--label=org.opencontainers.image.source={{ .GitURL }}"
     - "--platform=linux/i386"
   - image_templates:
-    - &arm_image "stackexchange/{{.ProjectName}}:{{ .Version }}-arm64"
-    - &arm_image_ghcr "ghcr.io/stackexchange/{{.ProjectName}}:{{ .Version }}-arm64"
+    # - &arm_image "stackexchange/{{.ProjectName}}:{{ .Version }}-arm64"
+    - &arm_image_ghcr "ghcr.io/firefishy/{{.ProjectName}}:{{ .Version }}-arm64"
     goos: linux
     goarch: arm64
     use: buildx
@@ -118,23 +118,23 @@ dockers:
     - "--label=org.opencontainers.image.source={{ .GitURL }}"
     - "--platform=linux/arm64"
 docker_manifests:
-  - name_template: "stackexchange/{{.ProjectName}}:{{ .Version }}"
-    image_templates:
-      - *amd_image
-      - *386_image
-      - *arm_image
-  - name_template: "ghcr.io/stackexchange/{{.ProjectName}}:{{ .Version }}"
+  # - name_template: "stackexchange/{{.ProjectName}}:{{ .Version }}"
+  #   image_templates:
+  #     - *amd_image
+  #     - *386_image
+  #     - *arm_image
+  - name_template: "ghcr.io/firefishy/{{.ProjectName}}:{{ .Version }}"
     image_templates:
       - *amd_image_ghcr
       - *386_image_ghcr
       - *arm_image_ghcr
-  - name_template: "stackexchange/{{.ProjectName}}:latest"
-    skip_push: auto
-    image_templates:
-      - *amd_image
-      - *386_image
-      - *arm_image
-  - name_template: "ghcr.io/stackexchange/{{.ProjectName}}:latest"
+  # - name_template: "stackexchange/{{.ProjectName}}:latest"
+  #   skip_push: auto
+  #   image_templates:
+  #     - *amd_image
+  #     - *386_image
+  #     - *arm_image
+  - name_template: "ghcr.io/firefishy/{{.ProjectName}}:latest"
     skip_push: auto
     image_templates:
       - *amd_image_ghcr
